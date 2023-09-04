@@ -1,7 +1,6 @@
 package com.rafaelneves.anacosmeticos.ui.widget
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -23,7 +22,6 @@ fun ButtonWithLoading(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
             .padding(16.dp)
     ) {
         if (isLoading) {
@@ -51,7 +49,7 @@ fun ButtonWithLoading(
 @Composable
 fun ButtonWithLoadingPreview() {
     AnaCosmeticosTheme {
-        ButtonWithLoading(title = "Entrar", isLoading = true) {
+        ButtonWithLoading(title = "Entrar", isLoading = false) {
 
         }
     }
