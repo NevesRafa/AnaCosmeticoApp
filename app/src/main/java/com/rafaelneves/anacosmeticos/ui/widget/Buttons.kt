@@ -32,26 +32,48 @@ fun ButtonWithLoading(
                 color = Color.Blue
             )
         } else {
-            Button(
-                onClick = onClick,
-                modifier = Modifier
-                    .padding(16.dp)
-            ) {
-                Text(text = title)
-            }
+            ButtonWithText(
+                title = title,
+                onClick = onClick
+            )
         }
     }
-
-
 }
+
+@Composable
+fun ButtonWithText(
+    title: String,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        Text(text = title)
+    }
+}
+
 
 @Preview
 @Composable
 fun ButtonWithLoadingPreview() {
     AnaCosmeticosTheme {
-        ButtonWithLoading(title = "Entrar", isLoading = false) {
-
-        }
+        ButtonWithLoading(
+            title = "Entrar",
+            isLoading = false,
+            onClick = {}
+        )
     }
+}
 
+@Preview
+@Composable
+fun ButtonWithTextPreview() {
+    AnaCosmeticosTheme {
+        ButtonWithText(
+            title = "Continuar",
+            onClick = {}
+        )
+    }
 }
