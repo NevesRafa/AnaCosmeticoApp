@@ -1,6 +1,7 @@
 package com.rafaelneves.anacosmeticos.ui.widget
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -160,6 +163,54 @@ private fun ItemCard(
     }
 }
 
+@Composable
+fun CardHomeScreen(
+    icon: Painter,
+    text: String,
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Icon(
+                painter = icon,
+                contentDescription = null,
+                tint = Color(0xFF545F71)
+            )
+
+            Spacer(modifier = Modifier.width(24.dp))
+
+            Text(
+                text = text,
+                fontSize = 16.sp,
+                fontWeight = FontWeight(600),
+                color = Color(0xFF545F71),
+                modifier = Modifier.weight(1f)
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowRight,
+                contentDescription = null,
+                tint = Color.Gray,
+                modifier = Modifier
+                    .clickable { onClick() }
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun ProductCardPreview() {
@@ -194,4 +245,14 @@ fun ProductBoxCardPreview() {
             productBoxQuantity = 15
         )
     }
+}
+
+@Preview
+@Composable
+fun PreviewIconTextArrowCard() {
+    CardHomeScreen(
+        icon = painterResource(id = R.drawable.ic_shipping),
+        text = "Enviados",
+        onClick = {}
+    )
 }
