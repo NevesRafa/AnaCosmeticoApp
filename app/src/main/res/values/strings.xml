@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">AnaCosmeticos</string>
+
+    <string name="edit_quantity_title">Editar Quantidade</string>
+    <string name="product_label">Produto</string>
+    <string name="quantity_label">Quantidade</string>
+    <string name="save_btn">Salvar</string>
+
+    <string name="new_box_title">Nova Caixa</string>
+    <string name="length_label">Comp.</string>
+    <string name="width_label">Larg.</string>
+    <string name="height_label">Alt.</string>
+    <string name="weight_label">Peso</string>
+    <string name="add_box_btn">Adicionar Caixa</string>
+
 </resources>
