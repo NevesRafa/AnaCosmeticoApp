@@ -72,4 +72,7 @@ dependencies {
     kapt("androidx.room:room-compiler:2.5.2")
 
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Lottie
+    implementation("com.airbnb.android:lottie-compose:6.0.1")
 }

@@ -12,5 +12,6 @@
     <string name="height_label">Alt.</string>
     <string name="weight_label">Peso</string>
     <string name="add_box_btn">Adicionar Caixa</string>
+    <string name="enter_btn">Entrar</string>
 
 </resources>
