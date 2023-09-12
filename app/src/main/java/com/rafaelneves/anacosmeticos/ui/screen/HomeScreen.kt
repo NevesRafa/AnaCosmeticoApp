@@ -2,12 +2,14 @@ package com.rafaelneves.anacosmeticos.ui.screen
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,35 +37,40 @@ val listHomeScreen = listOf(
 @Composable
 fun HomeScreen() {
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        LazyColumn(
+    Scaffold { innerPadding ->
+        Column(
             modifier = Modifier
-                .background(Color.White)
-                .fillMaxSize(),
-
+                .padding(innerPadding)
+                .fillMaxSize()
+        ) {
+            LazyColumn(
+                modifier = Modifier
+                    .background(Color.White)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
-            item {
-                Spacer(modifier = Modifier.padding(16.dp))
-            }
+                item {
+                    Spacer(modifier = Modifier.padding(16.dp))
+                }
 
-            items(listHomeScreen) { item ->
-                CardHomeScreen(
-                    icon = painterResource(id = item.icon),
-                    text = stringResource(id = item.title),
-                    onClick = {
-                        when (item.title) {
-                            R.string.new_shipping -> {}
-                            R.string.shipping -> {}
-                            R.string.stock -> {}
-                            R.string.new_product -> {}
+                items(listHomeScreen) { item ->
+                    CardHomeScreen(
+                        icon = painterResource(id = item.icon),
+                        text = stringResource(id = item.title),
+                        onClick = {
+                            when (item.title) {
+                                R.string.new_shipping -> {}
+                                R.string.shipping -> {}
+                                R.string.stock -> {}
+                                R.string.new_product -> {}
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
+
     }
 }
 

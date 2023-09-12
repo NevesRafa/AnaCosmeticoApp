@@ -102,7 +102,7 @@ private fun ItemCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(start = 16.dp, end = 16.dp),
         shape = MaterialTheme.shapes.medium
     ) {
         Row(
@@ -173,7 +173,7 @@ fun CardHomeScreen(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(start = 16.dp, end = 16.dp),
         shape = MaterialTheme.shapes.medium
     ) {
         Row(

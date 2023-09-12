@@ -17,5 +17,7 @@
     <string name="shipping">Enviados</string>
     <string name="stock">Estoque</string>
     <string name="new_product">Novo Produto</string>
+    <string name="add_item">Adicionar Item</string>
+    <string name="config_box">Configurações da Caixa</string>
 
 </resources>
