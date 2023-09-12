@@ -13,5 +13,9 @@
     <string name="weight_label">Peso</string>
     <string name="add_box_btn">Adicionar Caixa</string>
     <string name="enter_btn">Entrar</string>
+    <string name="new_shipping">Novo envio</string>
+    <string name="shipping">Enviados</string>
+    <string name="stock">Estoque</string>
+    <string name="new_product">Novo Produto</string>
 
 </resources>
