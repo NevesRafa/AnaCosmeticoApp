@@ -58,6 +58,21 @@ fun ProductCard(
 }
 
 @Composable
+fun BoxCard(
+    length: Double,
+    height: Double,
+    width: Double,
+    weight: Double
+) {
+    ItemCard(
+        icon = painterResource(id = R.drawable.ic_box),
+        name = "$length X $height X $width",
+        description = "$weight KG",
+        quantity = 1
+    )
+}
+
+@Composable
 fun ShippingCard(
     shippingName: String,
     boxQuantity: Int,
@@ -256,4 +271,17 @@ fun PreviewIconTextArrowCard() {
         text = stringResource(id = R.string.shipping),
         onClick = {}
     )
+}
+
+@Preview
+@Composable
+fun BoxCardPreview() {
+    AnaCosmeticosTheme {
+        BoxCard(
+            length = 30.0,
+            height = 30.0,
+            width = 30.0,
+            weight = 12.5
+        )
+    }
 }
