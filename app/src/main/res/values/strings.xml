@@ -3,6 +3,9 @@
 
     <string name="edit_quantity_title">Editar Quantidade</string>
     <string name="product_label">Produto</string>
+    <string name="product_name_label">Nome</string>
+    <string name="product_description_label">Descrição</string>
+    <string name="product_form_label">Forma</string>
     <string name="quantity_label">Quantidade</string>
     <string name="save_btn">Salvar</string>
 
