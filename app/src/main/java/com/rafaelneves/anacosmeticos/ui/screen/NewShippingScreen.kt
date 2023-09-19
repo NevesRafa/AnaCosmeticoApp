@@ -29,8 +29,8 @@ import com.rafaelneves.anacosmeticos.ui.widget.ButtonWithText
 import com.rafaelneves.anacosmeticos.ui.widget.ProductBoxCard
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
-val MOCKITEMSHIPPING = listOf(
-    ProductBoxDetails(id = 20092023, product = "Kaiak", productDescription = "Natura", amount = 1),
+val MOCKPRODUCT = listOf(
+    ProductBoxDetails(id = 20092023, product = "Kaiak", productDescription = "Natura", amount = 0),
     ProductBoxDetails(id = 20092023, product = "Kaiak", productDescription = "Natura", amount = 1),
     ProductBoxDetails(id = 20092023, product = "Kaiak", productDescription = "Natura", amount = 1),
     ProductBoxDetails(id = 20092023, product = "Kaiak", productDescription = "Natura", amount = 1),
@@ -74,7 +74,7 @@ fun NewShippingScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(MOCKITEMSHIPPING) { item ->
+                items(MOCKPRODUCT) { item ->
                     ProductBoxCard(
                         productBoxName = item.product,
                         productBoxDescription = item.productDescription,
