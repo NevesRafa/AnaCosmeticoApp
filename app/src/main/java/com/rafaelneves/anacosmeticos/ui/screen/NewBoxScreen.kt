@@ -77,7 +77,8 @@ fun NewBoxScreen(
                     length = item.length,
                     height = item.height,
                     width = item.width,
-                    weight = item.weight
+                    weight = item.weight,
+                    onClick = {}
                 )
             }
 

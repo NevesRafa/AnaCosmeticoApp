@@ -40,7 +40,8 @@ import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 fun ProductCard(
     productName: String,
     productBrand: String,
-    productQuantity: Int
+    productQuantity: Int,
+    onClick: () -> Unit
 ) {
 
     val iconCondition = if (productQuantity <= 0) {
@@ -53,7 +54,8 @@ fun ProductCard(
         icon = iconCondition,
         name = productName,
         description = productBrand,
-        quantity = productQuantity
+        quantity = productQuantity,
+        onClick = { onClick() }
     )
 }
 
@@ -62,21 +64,24 @@ fun BoxCard(
     length: Double,
     height: Double,
     width: Double,
-    weight: Double
+    weight: Double,
+    onClick: () -> Unit
 ) {
     ItemCard(
         icon = painterResource(id = R.drawable.ic_box),
         name = "$length X $height X $width",
         description = "$weight KG",
-        quantity = 1
+        quantity = 1,
+        onClick = { onClick() }
     )
 }
 
 @Composable
-fun ShippingCard(
-    shippingName: String,
+fun SentCard(
+    shippingName: Int,
     boxQuantity: Int,
-    productQuantity: Int
+    productQuantity: Int,
+    onClick: () -> Unit
 ) {
 
     val boxQuantityStringCondition = if (boxQuantity > 1) {
@@ -87,9 +92,10 @@ fun ShippingCard(
 
     ItemCard(
         icon = painterResource(id = R.drawable.ic_shipping),
-        name = shippingName,
+        name = "Caixa $shippingName",
         description = boxQuantityStringCondition,
-        quantity = productQuantity
+        quantity = productQuantity,
+        onClick = { onClick() }
     )
 }
 
@@ -97,13 +103,15 @@ fun ShippingCard(
 fun ProductBoxCard(
     productBoxName: String,
     productBoxDescription: String,
-    productBoxQuantity: Int
+    productBoxQuantity: Int,
+    onClick: () -> Unit
 ) {
     ItemCard(
         icon = painterResource(id = R.drawable.ic_bag),
         name = productBoxName,
         description = productBoxDescription,
-        quantity = productBoxQuantity
+        quantity = productBoxQuantity,
+        onClick = { onClick() }
     )
 }
 
@@ -112,12 +120,14 @@ private fun ItemCard(
     icon: Painter,
     name: String,
     description: String,
-    quantity: Int
+    quantity: Int,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp),
+            .padding(start = 16.dp, end = 16.dp)
+            .clickable { onClick() },
         shape = MaterialTheme.shapes.medium
     ) {
         Row(
@@ -234,7 +244,8 @@ fun ProductCardPreview() {
         ProductCard(
             productName = "Kaiak Tradicional",
             productBrand = "Natura",
-            productQuantity = 0
+            productQuantity = 0,
+            onClick = {}
         )
     }
 }
@@ -243,10 +254,11 @@ fun ProductCardPreview() {
 @Composable
 fun ShippingCardPreview() {
     AnaCosmeticosTheme {
-        ShippingCard(
-            shippingName = "Caixa 31082023",
+        SentCard(
+            shippingName = 31082023,
             boxQuantity = 3,
-            productQuantity = 180
+            productQuantity = 180,
+            onClick = {}
         )
     }
 }
@@ -258,7 +270,8 @@ fun ProductBoxCardPreview() {
         ProductBoxCard(
             productBoxName = "Anador",
             productBoxDescription = "Comprimido",
-            productBoxQuantity = 15
+            productBoxQuantity = 15,
+            onClick = {}
         )
     }
 }
@@ -281,7 +294,8 @@ fun BoxCardPreview() {
             length = 30.0,
             height = 30.0,
             width = 30.0,
-            weight = 12.5
+            weight = 12.5,
+            onClick = {}
         )
     }
 }

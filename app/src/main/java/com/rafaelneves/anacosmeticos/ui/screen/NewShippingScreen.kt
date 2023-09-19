@@ -78,7 +78,8 @@ fun NewShippingScreen(
                     ProductBoxCard(
                         productBoxName = item.product,
                         productBoxDescription = item.productDescription,
-                        productBoxQuantity = item.amount
+                        productBoxQuantity = item.amount,
+                        onClick = {}
                     )
                 }
 
