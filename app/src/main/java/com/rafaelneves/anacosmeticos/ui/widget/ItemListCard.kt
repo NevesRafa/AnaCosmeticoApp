@@ -1,7 +1,9 @@
 package com.rafaelneves.anacosmeticos.ui.widget
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,10 +19,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,104 +38,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 
-
-@Composable
-fun ProductCard(
-    productName: String,
-    productBrand: String,
-    productQuantity: Int,
-    onClick: () -> Unit
-) {
-
-    val iconCondition = if (productQuantity <= 0) {
-        painterResource(id = R.drawable.ic_sad)
-    } else {
-        painterResource(id = R.drawable.ic_happy)
-    }
-
-    ItemCard(
-        icon = iconCondition,
-        name = productName,
-        description = productBrand,
-        quantity = productQuantity,
-        onClick = { onClick() }
-    )
-}
-
-@Composable
-fun BoxCard(
-    length: Double,
-    height: Double,
-    width: Double,
-    weight: Double,
-    onClick: () -> Unit
-) {
-    ItemCard(
-        icon = painterResource(id = R.drawable.ic_box),
-        name = "$length X $height X $width",
-        description = "$weight KG",
-        quantity = 1,
-        onClick = { onClick() }
-    )
-}
-
-@Composable
-fun SentCard(
-    shippingName: Int,
-    boxQuantity: Int,
-    productQuantity: Int,
-    onClick: () -> Unit
-) {
-
-    val boxQuantityStringCondition = if (boxQuantity > 1) {
-        "$boxQuantity caixas"
-    } else {
-        "$boxQuantity caixa"
-    }
-
-    ItemCard(
-        icon = painterResource(id = R.drawable.ic_shipping),
-        name = "Caixa $shippingName",
-        description = boxQuantityStringCondition,
-        quantity = productQuantity,
-        onClick = { onClick() }
-    )
-}
-
-@Composable
-fun ProductBoxCard(
-    productBoxName: String,
-    productBoxDescription: String,
-    productBoxQuantity: Int,
-    onClick: () -> Unit
-) {
-    ItemCard(
-        icon = painterResource(id = R.drawable.ic_bag),
-        name = productBoxName,
-        description = productBoxDescription,
-        quantity = productBoxQuantity,
-        onClick = { onClick() }
-    )
-}
-
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ItemCard(
     icon: Painter,
     name: String,
     description: String,
     quantity: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp)
-            .clickable { onClick() },
+            .combinedClickable(
+                onClick = { onClick() },
+                onLongClick = { onLongClick() }
+            ),
         shape = MaterialTheme.shapes.medium
     ) {
         Row(
@@ -190,6 +124,128 @@ private fun ItemCard(
 }
 
 @Composable
+fun ProductCard(
+    productName: String,
+    productBrand: String,
+    productQuantity: Int,
+    onClickEdit: () -> Unit,
+    onClickDelete: () -> Unit
+) {
+
+    var expanded by remember { mutableStateOf(false) }
+
+    val iconCondition = if (productQuantity <= 0) {
+        painterResource(id = R.drawable.ic_sad)
+    } else {
+        painterResource(id = R.drawable.ic_happy)
+    }
+
+    Box {
+        ItemCard(
+            icon = iconCondition,
+            name = productName,
+            description = productBrand,
+            quantity = productQuantity,
+            onClick = { },
+            onLongClick = { expanded = !expanded }
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            offset = DpOffset(x = (-66).dp, y = (-50).dp)
+        ) {
+            DropdownMenuItem(
+                text = { Text("Editar") },
+                onClick = { onClickEdit() }
+            )
+            DropdownMenuItem(
+                text = { Text("Excluir") },
+                onClick = { onClickDelete() }
+            )
+        }
+    }
+}
+
+@Composable
+fun BoxCard(
+    length: Double,
+    height: Double,
+    width: Double,
+    weight: Double,
+    onClickEdit: () -> Unit,
+    onClickDelete: () -> Unit
+) {
+
+    var expanded by remember { mutableStateOf(false) }
+
+    Box {
+        ItemCard(
+            icon = painterResource(id = R.drawable.ic_box),
+            name = "$length X $height X $width",
+            description = "$weight KG",
+            quantity = 1,
+            onClick = { },
+            onLongClick = { expanded = !expanded }
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            offset = DpOffset(x = (-66).dp, y = (-50).dp)
+        ) {
+            DropdownMenuItem(
+                text = { Text("Editar") },
+                onClick = { onClickEdit() }
+            )
+            DropdownMenuItem(
+                text = { Text("Excluir") },
+                onClick = { onClickDelete() }
+            )
+        }
+    }
+}
+
+@Composable
+fun SentCard(
+    shippingName: Int,
+    boxQuantity: Int,
+    productQuantity: Int,
+    onClick: () -> Unit
+) {
+
+    val boxQuantityStringCondition = if (boxQuantity > 1) {
+        "$boxQuantity caixas"
+    } else {
+        "$boxQuantity caixa"
+    }
+
+    ItemCard(
+        icon = painterResource(id = R.drawable.ic_shipping),
+        name = "Caixa $shippingName",
+        description = boxQuantityStringCondition,
+        quantity = productQuantity,
+        onClick = { onClick() },
+        onLongClick = { }
+    )
+}
+
+@Composable
+fun ProductBoxCard(
+    productBoxName: String,
+    productBoxDescription: String,
+    productBoxQuantity: Int,
+    onLongClick: () -> Unit
+) {
+    ItemCard(
+        icon = painterResource(id = R.drawable.ic_bag),
+        name = productBoxName,
+        description = productBoxDescription,
+        quantity = productBoxQuantity,
+        onClick = { },
+        onLongClick = { onLongClick() }
+    )
+}
+
+@Composable
 fun CardHomeScreen(
     icon: Painter,
     text: String,
@@ -198,7 +254,8 @@ fun CardHomeScreen(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp),
+            .padding(start = 16.dp, end = 16.dp)
+            .clickable { onClick() },
         shape = MaterialTheme.shapes.medium
     ) {
         Row(
@@ -229,9 +286,7 @@ fun CardHomeScreen(
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = null,
-                tint = Color.Gray,
-                modifier = Modifier
-                    .clickable { onClick() }
+                tint = Color.Gray
             )
         }
     }
@@ -245,7 +300,8 @@ fun ProductCardPreview() {
             productName = "Kaiak Tradicional",
             productBrand = "Natura",
             productQuantity = 0,
-            onClick = {}
+            onClickEdit = {},
+            onClickDelete = {}
         )
     }
 }
@@ -271,7 +327,7 @@ fun ProductBoxCardPreview() {
             productBoxName = "Anador",
             productBoxDescription = "Comprimido",
             productBoxQuantity = 15,
-            onClick = {}
+            onLongClick = { }
         )
     }
 }
@@ -295,7 +351,8 @@ fun BoxCardPreview() {
             height = 30.0,
             width = 30.0,
             weight = 12.5,
-            onClick = {}
+            onClickEdit = {},
+            onClickDelete = {}
         )
     }
 }

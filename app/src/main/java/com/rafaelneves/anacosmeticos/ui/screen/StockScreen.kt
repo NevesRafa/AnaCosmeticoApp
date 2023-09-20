@@ -1,5 +1,6 @@
 package com.rafaelneves.anacosmeticos.ui.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
@@ -25,6 +27,8 @@ import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 fun StockScreen(
     topAppBarTitle: String
 ) {
+
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -61,7 +65,12 @@ fun StockScreen(
                         productName = item.product,
                         productBrand = item.productDescription,
                         productQuantity = item.amount,
-                        onClick = {}
+                        onClickEdit = {
+                            Toast.makeText(context, "Editado", Toast.LENGTH_SHORT).show()
+                        },
+                        onClickDelete = {
+                            Toast.makeText(context, "Deletado", Toast.LENGTH_SHORT).show()
+                        }
                     )
                 }
             }
