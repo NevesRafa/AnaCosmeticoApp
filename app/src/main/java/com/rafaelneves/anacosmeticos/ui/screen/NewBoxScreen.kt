@@ -1,6 +1,5 @@
 package com.rafaelneves.anacosmeticos.ui.screen
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
@@ -14,14 +13,18 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.data.model.BoxDetails
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 import com.rafaelneves.anacosmeticos.ui.widget.BoxCard
+import com.rafaelneves.anacosmeticos.ui.widget.CreateBoxBottomSheet
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
 val MOCKBOX = listOf(
@@ -46,7 +49,7 @@ fun NewBoxScreen(
     topAppBarTitle: String
 ) {
 
-    val context = LocalContext.current
+    var openBottomSheet by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -83,12 +86,15 @@ fun NewBoxScreen(
                     height = item.height,
                     width = item.width,
                     weight = item.weight,
-                    onClickEdit = { Toast.makeText(context, "Editado", Toast.LENGTH_SHORT).show() },
-                    onClickDelete = {
-                        Toast.makeText(context, "Deletado", Toast.LENGTH_SHORT).show()
-                    }
+                    onClickEdit = { openBottomSheet = true },
+                    onClickDelete = {}
                 )
 
+                CreateBoxBottomSheet(
+                    openBottomSheet = openBottomSheet,
+                    onDismiss = { openBottomSheet = false },
+                    title = "CAIXA"
+                )
             }
         }
     }
