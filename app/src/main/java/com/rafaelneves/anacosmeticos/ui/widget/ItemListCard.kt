@@ -233,17 +233,42 @@ fun ProductBoxCard(
     productBoxName: String,
     productBoxDescription: String,
     productBoxQuantity: Int,
-    onLongClick: () -> Unit
+    onClickEdit: () -> Unit,
+    onClickDelete: () -> Unit
 ) {
+
+    var expanded by remember { mutableStateOf(false) }
+
     ItemCard(
         icon = painterResource(id = R.drawable.ic_bag),
         name = productBoxName,
         description = productBoxDescription,
         quantity = productBoxQuantity,
         onClick = { },
-        onLongClick = { onLongClick() }
+        onLongClick = { expanded = !expanded }
     )
+    DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = { expanded = false },
+        offset = DpOffset(x = (-66).dp, y = (-50).dp)
+    ) {
+        DropdownMenuItem(
+            text = { Text("Editar") },
+            onClick = {
+                expanded = false
+                onClickEdit()
+            }
+        )
+        DropdownMenuItem(
+            text = { Text("Excluir") },
+            onClick = {
+                expanded = false
+                onClickDelete()
+            }
+        )
+    }
 }
+
 
 @Composable
 fun CardHomeScreen(
@@ -327,7 +352,8 @@ fun ProductBoxCardPreview() {
             productBoxName = "Anador",
             productBoxDescription = "Comprimido",
             productBoxQuantity = 15,
-            onLongClick = { }
+            onClickEdit = {},
+            onClickDelete = {}
         )
     }
 }

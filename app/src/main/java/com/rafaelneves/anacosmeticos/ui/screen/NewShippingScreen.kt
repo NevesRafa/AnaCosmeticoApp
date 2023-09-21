@@ -11,10 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +31,7 @@ import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.data.model.ProductBoxDetails
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 import com.rafaelneves.anacosmeticos.ui.widget.ButtonWithText
+import com.rafaelneves.anacosmeticos.ui.widget.EditQuantityBottomSheet
 import com.rafaelneves.anacosmeticos.ui.widget.ProductBoxCard
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
@@ -43,12 +49,15 @@ val MOCKPRODUCT = listOf(
     ProductBoxDetails(id = 20092023, product = "Kaiak", productDescription = "Natura", amount = 1)
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewShippingScreen(
     topAppBarTitle: String,
     productInput: String,
     quantityInput: String
 ) {
+    var openBottomSheet by remember { mutableStateOf(false) }
+
 
     Scaffold(
         topBar = {
@@ -79,8 +88,19 @@ fun NewShippingScreen(
                         productBoxName = item.product,
                         productBoxDescription = item.productDescription,
                         productBoxQuantity = item.amount,
-                        onLongClick = {}
+                        onClickEdit = {
+                            openBottomSheet = true
+                        },
+                        onClickDelete = {}
                     )
+
+                    EditQuantityBottomSheet(
+                        openBottomSheet = openBottomSheet,
+                        onDismiss = { openBottomSheet = false },
+                        title = "EDITAR QUANTIDADE",
+                        product = ""
+                    )
+
                 }
 
             }

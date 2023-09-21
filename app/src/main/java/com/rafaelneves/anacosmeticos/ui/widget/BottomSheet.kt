@@ -1,20 +1,23 @@
 package com.rafaelneves.anacosmeticos.ui.widget
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,31 +30,53 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetEditQuantityOfItemInTheBox(
-    sheetState: SheetState,
-    scope: CoroutineScope,
+fun BottomSheet(
+    title: String,
+    openBottomSheet: Boolean,
+    onDismiss: () -> Unit,
+    scrimColor: Color = BottomSheetDefaults.ScrimColor,
+    content: @Composable ColumnScope.() -> Unit
+) {
+
+    val bottomSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+
+    if (openBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = onDismiss,
+            containerColor = MaterialTheme.colorScheme.background,
+            sheetState = bottomSheetState,
+            scrimColor = scrimColor,
+            dragHandle = null
+        ) {
+            Column {
+                Spacer(modifier = Modifier.height(24.dp))
+                BottomSheetHeader(title = title)
+                Divider(color = Color.Gray.copy(alpha = 0.1F))
+            }
+            content()
+        }
+    }
+}
+
+@Composable
+fun EditQuantityBottomSheet(
+    openBottomSheet: Boolean,
+    onDismiss: () -> Unit,
     quantityInput: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
-    title: Int,
+    title: String,
     product: String
 ) {
 
-    ModalBottomSheet(
-        sheetState = sheetState,
-        onDismissRequest = {
-            scope.launch {
-                sheetState.hide()
-            }
-        },
+    BottomSheet(
+        title = title,
+        openBottomSheet = openBottomSheet,
+        onDismiss = onDismiss
     ) {
-        BottomSheetHeader(title)
-
-        Divider(color = Color.Gray.copy(alpha = 0.1F))
-
         OutlinedTextField(
             value = product,
             onValueChange = { },
@@ -85,29 +110,21 @@ fun BottomSheetEditQuantityOfItemInTheBox(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetBox(
-    sheetState: SheetState,
-    scope: CoroutineScope,
-    title: Int,
+fun CreateBoxBottomSheet(
+    openBottomSheet: Boolean,
+    onDismiss: () -> Unit,
+    title: String,
     lengthInput: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
     widthInput: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
     heightInput: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
     weightInput: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue(""))
 ) {
-    ModalBottomSheet(
-        sheetState = sheetState,
-        onDismissRequest = {
-            scope.launch {
-                sheetState.hide()
-            }
-        },
+    BottomSheet(
+        title = title,
+        openBottomSheet = openBottomSheet,
+        onDismiss = onDismiss
     ) {
-        BottomSheetHeader(title)
-
-        Divider(color = Color.Gray.copy(alpha = 0.1F))
-
         Row {
             OutlinedTextField(
                 value = lengthInput.value,
@@ -161,12 +178,13 @@ fun BottomSheetBox(
     }
 }
 
+
 @Composable
 private fun BottomSheetHeader(
-    title: Int
+    title: String
 ) {
     Text(
-        text = stringResource(id = title),
+        text = title,
         fontSize = 16.sp,
         fontWeight = FontWeight(600),
         color = Color(0xFF545F71),
@@ -183,12 +201,11 @@ private fun BottomSheetHeader(
 fun BottomSheetEditAmountItemInBoxPreview() {
 
     AnaCosmeticosTheme {
-        BottomSheetEditQuantityOfItemInTheBox(
-            sheetState = rememberModalBottomSheetState(),
-            scope = rememberCoroutineScope(),
-            title = R.string.edit_quantity_title,
-            product = "Kaiak"
-
+        EditQuantityBottomSheet(
+            openBottomSheet = true,
+            onDismiss = { },
+            title = "EDITAR CAIXA",
+            product = ""
         )
     }
 }
@@ -197,12 +214,11 @@ fun BottomSheetEditAmountItemInBoxPreview() {
 @Preview
 @Composable
 fun BottomSheetBoxPreview() {
-
     AnaCosmeticosTheme {
-        BottomSheetBox(
-            sheetState = rememberModalBottomSheetState(),
-            scope = rememberCoroutineScope(),
-            title = R.string.new_box_title
+        CreateBoxBottomSheet(
+            openBottomSheet = true,
+            onDismiss = { },
+            title = "CAIXA"
         )
     }
 }
