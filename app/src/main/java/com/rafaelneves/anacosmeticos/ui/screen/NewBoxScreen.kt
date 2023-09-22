@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.data.model.BoxDetails
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
+import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.BoxCard
 import com.rafaelneves.anacosmeticos.ui.widget.CreateBoxBottomSheet
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
@@ -50,6 +51,7 @@ fun NewBoxScreen(
 ) {
 
     var openBottomSheet by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -87,13 +89,18 @@ fun NewBoxScreen(
                     width = item.width,
                     weight = item.weight,
                     onClickEdit = { openBottomSheet = true },
-                    onClickDelete = {}
+                    onClickDelete = { showDialog = true }
                 )
 
                 CreateBoxBottomSheet(
                     openBottomSheet = openBottomSheet,
                     onDismiss = { openBottomSheet = false },
                     title = "CAIXA"
+                )
+
+                AlertDialog(
+                    openDialog = showDialog,
+                    onDismiss = { showDialog = false }
                 )
             }
         }

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.data.model.ProductBoxDetails
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
+import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.ButtonWithText
 import com.rafaelneves.anacosmeticos.ui.widget.EditQuantityBottomSheet
 import com.rafaelneves.anacosmeticos.ui.widget.ProductBoxCard
@@ -49,7 +49,7 @@ val MOCKPRODUCT = listOf(
     ProductBoxDetails(id = 20092023, product = "Kaiak", productDescription = "Natura", amount = 1)
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun NewShippingScreen(
     topAppBarTitle: String,
@@ -57,6 +57,7 @@ fun NewShippingScreen(
     quantityInput: String
 ) {
     var openBottomSheet by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }
 
 
     Scaffold(
@@ -88,10 +89,8 @@ fun NewShippingScreen(
                         productBoxName = item.product,
                         productBoxDescription = item.productDescription,
                         productBoxQuantity = item.amount,
-                        onClickEdit = {
-                            openBottomSheet = true
-                        },
-                        onClickDelete = {}
+                        onClickEdit = { openBottomSheet = true },
+                        onClickDelete = { showDialog = true }
                     )
 
                     EditQuantityBottomSheet(
@@ -101,6 +100,10 @@ fun NewShippingScreen(
                         product = ""
                     )
 
+                    AlertDialog(
+                        openDialog = showDialog,
+                        onDismiss = { showDialog = false }
+                    )
                 }
 
             }
@@ -171,14 +174,14 @@ fun BodyPreview() {
     }
 }
 
-@Preview
-@Composable
-fun NewShippingScreenPreview() {
-    AnaCosmeticosTheme {
-        NewShippingScreen(
-            topAppBarTitle = stringResource(id = R.string.new_shipping),
-            productInput = "",
-            quantityInput = ""
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun NewShippingScreenPreview() {
+//    AnaCosmeticosTheme {
+//        NewShippingScreen(
+//            topAppBarTitle = stringResource(id = R.string.new_shipping),
+//            productInput = "",
+//            quantityInput = ""
+//        )
+//    }
+//}

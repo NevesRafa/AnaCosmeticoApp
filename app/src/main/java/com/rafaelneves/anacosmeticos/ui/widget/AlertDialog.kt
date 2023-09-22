@@ -14,13 +14,16 @@ import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 
 
 @Composable
-fun AlertDialog() {
-    val openDialog = remember { mutableStateOf(true) }
+fun AlertDialog(
+    openDialog: Boolean,
+    onDismiss: () -> Unit
+) {
+    val dialogState = remember { mutableStateOf(true) }
 
-    if (openDialog.value) {
+    if (openDialog) {
         AlertDialog(
             onDismissRequest = {
-                openDialog.value = false
+                onDismiss()
             },
             title = {
                 Text(
@@ -41,7 +44,7 @@ fun AlertDialog() {
             confirmButton = {
                 TextButton(
                     onClick = {
-                        openDialog.value = false
+                        onDismiss()
                     }
                 ) {
                     Text(
@@ -55,7 +58,7 @@ fun AlertDialog() {
             dismissButton = {
                 TextButton(
                     onClick = {
-                        openDialog.value = false
+                        onDismiss()
                     }
                 ) {
                     Text(
@@ -74,6 +77,9 @@ fun AlertDialog() {
 @Composable
 fun AlertDialogPreview() {
     AnaCosmeticosTheme {
-        AlertDialog()
+        AlertDialog(
+            openDialog = true,
+            onDismiss = {}
+        )
     }
 }

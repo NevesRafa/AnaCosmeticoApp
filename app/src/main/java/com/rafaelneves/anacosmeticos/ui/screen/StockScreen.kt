@@ -1,6 +1,5 @@
 package com.rafaelneves.anacosmeticos.ui.screen
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,12 +13,16 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
+import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.ProductCard
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
@@ -28,7 +31,7 @@ fun StockScreen(
     topAppBarTitle: String
 ) {
 
-    val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -65,12 +68,13 @@ fun StockScreen(
                         productName = item.product,
                         productBrand = item.productDescription,
                         productQuantity = item.amount,
-                        onClickEdit = {
-                            Toast.makeText(context, "Editado", Toast.LENGTH_SHORT).show()
-                        },
-                        onClickDelete = {
-                            Toast.makeText(context, "Deletado", Toast.LENGTH_SHORT).show()
-                        }
+                        onClickEdit = { },
+                        onClickDelete = { showDialog = true }
+                    )
+
+                    AlertDialog(
+                        openDialog = showDialog,
+                        onDismiss = { showDialog = false }
                     )
                 }
             }
