@@ -19,16 +19,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.ProductCard
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
 @Composable
 fun StockScreen(
-    topAppBarTitle: String
+    topAppBarTitle: String,
+    onNavigateToAddNewProduct: () -> Unit
 ) {
 
     var showDialog by remember { mutableStateOf(false) }
@@ -42,7 +41,7 @@ fun StockScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { }
+                onClick = { onNavigateToAddNewProduct() }
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -82,12 +81,12 @@ fun StockScreen(
     }
 }
 
-@Preview
-@Composable
-fun StockScreenPreview() {
-    AnaCosmeticosTheme {
-        StockScreen(
-            topAppBarTitle = "ESTOQUE"
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun StockScreenPreview() {
+//    AnaCosmeticosTheme {
+//        StockScreen(
+//            topAppBarTitle = "ESTOQUE"
+//        )
+//    }
+//}

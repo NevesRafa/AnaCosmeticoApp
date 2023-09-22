@@ -24,11 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.data.model.ProductBoxDetails
-import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.ButtonWithText
 import com.rafaelneves.anacosmeticos.ui.widget.EditQuantityBottomSheet
@@ -54,7 +52,8 @@ val MOCKPRODUCT = listOf(
 fun NewShippingScreen(
     topAppBarTitle: String,
     productInput: String,
-    quantityInput: String
+    quantityInput: String,
+    onNavigateToNewBoxScreen: () -> Unit
 ) {
     var openBottomSheet by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
@@ -76,7 +75,8 @@ fun NewShippingScreen(
 
             Body(
                 productInput = productInput,
-                quantityInput = quantityInput
+                quantityInput = quantityInput,
+                onNavigateToNewBoxScreen = { onNavigateToNewBoxScreen() }
             )
             LazyColumn(
                 modifier = Modifier
@@ -114,7 +114,8 @@ fun NewShippingScreen(
 @Composable
 fun Body(
     productInput: String,
-    quantityInput: String
+    quantityInput: String,
+    onNavigateToNewBoxScreen: () -> Unit
 ) {
 
     Column(
@@ -157,22 +158,22 @@ fun Body(
             modifier = Modifier
                 .fillMaxWidth(),
             title = stringResource(R.string.config_box),
-            onClick = {}
+            onClick = { onNavigateToNewBoxScreen() }
         )
 
     }
 }
 
-@Preview
-@Composable
-fun BodyPreview() {
-    AnaCosmeticosTheme {
-        Body(
-            productInput = "Kaiak",
-            quantityInput = "2"
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun BodyPreview() {
+//    AnaCosmeticosTheme {
+//        Body(
+//            productInput = "Kaiak",
+//            quantityInput = "2"
+//        )
+//    }
+//}
 
 //@Preview
 //@Composable

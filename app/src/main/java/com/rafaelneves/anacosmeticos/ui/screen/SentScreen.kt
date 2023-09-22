@@ -17,10 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.data.model.ShippingDetails
-import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 import com.rafaelneves.anacosmeticos.ui.widget.SentCard
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
@@ -75,7 +73,7 @@ fun SentScreen(
                         shippingName = item.id,
                         boxQuantity = item.boxAmount,
                         productQuantity = item.productAmount,
-                        onClick = {}
+                        onClick = { }
                     )
 
                 }
@@ -107,12 +105,12 @@ fun SearchTextField(
 
 }
 
-@Preview
-@Composable
-fun SentScreenPreview() {
-    AnaCosmeticosTheme {
-        SentScreen(
-            topAppBarTitle = "Enviados"
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun SentScreenPreview() {
+//    AnaCosmeticosTheme {
+//        SentScreen(
+//            topAppBarTitle = "Enviados"
+//        )
+//    }
+//}

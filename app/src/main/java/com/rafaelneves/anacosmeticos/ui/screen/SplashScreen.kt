@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -23,7 +22,9 @@ import com.rafaelneves.anacosmeticos.ui.widget.ButtonWithLoading
 
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(
+    onNavigateToHomeScreen: () -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -39,10 +40,9 @@ fun SplashScreen() {
 
         ButtonWithLoading(
             title = stringResource(R.string.enter_btn),
-            isLoading = false
-        ) {
-
-        }
+            isLoading = false,
+            onClick = { onNavigateToHomeScreen() }
+        )
     }
 }
 
@@ -59,8 +59,8 @@ fun ComposeLottieAnimation(modifier: Modifier = Modifier) {
     )
 }
 
-@Composable
-@Preview
-fun SplashScreenPreview() {
-    SplashScreen()
-}
+//@Composable
+//@Preview
+//fun SplashScreenPreview() {
+//    SplashScreen()
+//}
