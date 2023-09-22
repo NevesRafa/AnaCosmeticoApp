@@ -50,10 +50,10 @@ val MOCKPRODUCT = listOf(
 
 @Composable
 fun NewShippingScreen(
-    topAppBarTitle: String,
     productInput: String,
     quantityInput: String,
-    onNavigateToNewBoxScreen: () -> Unit
+    onNavigateToNewBoxScreen: () -> Unit,
+    onBackPressed: () -> Unit
 ) {
     var openBottomSheet by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
@@ -62,8 +62,8 @@ fun NewShippingScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = topAppBarTitle,
-                onBackPressed = {}
+                title = "NOVO ENVIO",
+                onBackPressed = { onBackPressed() }
             )
         }
     ) { innerPadding ->
@@ -163,26 +163,3 @@ fun Body(
 
     }
 }
-
-//@Preview
-//@Composable
-//fun BodyPreview() {
-//    AnaCosmeticosTheme {
-//        Body(
-//            productInput = "Kaiak",
-//            quantityInput = "2"
-//        )
-//    }
-//}
-
-//@Preview
-//@Composable
-//fun NewShippingScreenPreview() {
-//    AnaCosmeticosTheme {
-//        NewShippingScreen(
-//            topAppBarTitle = stringResource(id = R.string.new_shipping),
-//            productInput = "",
-//            quantityInput = ""
-//        )
-//    }
-//}

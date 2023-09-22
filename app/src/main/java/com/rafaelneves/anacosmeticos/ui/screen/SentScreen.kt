@@ -45,14 +45,14 @@ val MOCKSHIPPING = listOf(
 
 @Composable
 fun SentScreen(
-    topAppBarTitle: String
+    onBackPressed: () -> Unit
 ) {
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = topAppBarTitle,
-                onBackPressed = {}
+                title = "ENVIADOS",
+                onBackPressed = { onBackPressed() }
             )
         }
     ) { innerPadding ->
@@ -104,13 +104,3 @@ fun SearchTextField(
     }
 
 }
-
-//@Preview
-//@Composable
-//fun SentScreenPreview() {
-//    AnaCosmeticosTheme {
-//        SentScreen(
-//            topAppBarTitle = "Enviados"
-//        )
-//    }
-//}

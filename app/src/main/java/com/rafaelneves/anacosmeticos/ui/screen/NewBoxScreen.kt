@@ -19,10 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.data.model.BoxDetails
-import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.BoxCard
 import com.rafaelneves.anacosmeticos.ui.widget.CreateBoxBottomSheet
@@ -47,7 +45,7 @@ val MOCKBOX = listOf(
 
 @Composable
 fun NewBoxScreen(
-    topAppBarTitle: String
+    onBackPressed: () -> Unit
 ) {
 
     var openBottomSheet by remember { mutableStateOf(false) }
@@ -56,8 +54,8 @@ fun NewBoxScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = topAppBarTitle,
-                onBackPressed = {}
+                title = "NOVA CAIXA",
+                onBackPressed = { onBackPressed() }
             )
         },
         floatingActionButton = {
@@ -104,14 +102,5 @@ fun NewBoxScreen(
                 )
             }
         }
-    }
-}
-
-
-@Preview
-@Composable
-fun NewBoxScreenPreview() {
-    AnaCosmeticosTheme {
-        NewBoxScreen("CAIXAS")
     }
 }

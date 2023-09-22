@@ -26,8 +26,8 @@ import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
 @Composable
 fun StockScreen(
-    topAppBarTitle: String,
-    onNavigateToAddNewProduct: () -> Unit
+    onNavigateToAddNewProduct: () -> Unit,
+    onBackPressed: () -> Unit
 ) {
 
     var showDialog by remember { mutableStateOf(false) }
@@ -35,8 +35,8 @@ fun StockScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = topAppBarTitle,
-                onBackPressed = {}
+                title = "ESTOQUE",
+                onBackPressed = { onBackPressed() }
             )
         },
         floatingActionButton = {
@@ -80,13 +80,3 @@ fun StockScreen(
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun StockScreenPreview() {
-//    AnaCosmeticosTheme {
-//        StockScreen(
-//            topAppBarTitle = "ESTOQUE"
-//        )
-//    }
-//}

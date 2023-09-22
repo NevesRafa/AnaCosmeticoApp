@@ -194,8 +194,6 @@ private fun BottomSheetHeader(
     )
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun BottomSheetEditAmountItemInBoxPreview() {
@@ -210,7 +208,6 @@ fun BottomSheetEditAmountItemInBoxPreview() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun BottomSheetBoxPreview() {

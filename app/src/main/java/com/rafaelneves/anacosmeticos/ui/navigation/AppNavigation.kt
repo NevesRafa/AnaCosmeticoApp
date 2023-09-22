@@ -26,7 +26,11 @@ fun Navigation(modifier: Modifier = Modifier) {
         composable(route = NavigationRoute.SPLASH_SCREEN.route) {
             SplashScreen(
                 onNavigateToHomeScreen = {
-                    navController.navigate(NavigationRoute.HOME_SCREEN.route)
+                    navController.navigate(NavigationRoute.HOME_SCREEN.route) {
+                        popUpTo(NavigationRoute.SPLASH_SCREEN.route) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
@@ -44,56 +48,50 @@ fun Navigation(modifier: Modifier = Modifier) {
                     navController.navigate((NavigationRoute.STOCK_SCREEN.route))
                 },
                 onNavigateToNewProductScreenScreen = {
-                    navController.navigate(NavigationRoute.NEW_PRODUCT_SCREEN.route)
+                    navController.navigate(NavigationRoute.ADD_NEW_PRODUCT.route)
                 }
             )
         }
 
         composable(route = NavigationRoute.NEW_SHIPPING_SCREEN.route) {
             NewShippingScreen(
-                topAppBarTitle = "NOVO ENVIO",
                 productInput = "",
                 quantityInput = "",
                 onNavigateToNewBoxScreen = {
                     navController.navigate(NavigationRoute.NEW_BOX_SCREEN.route)
-                }
+                },
+                onBackPressed = { navController.navigateUp() }
             )
         }
 
         composable(route = NavigationRoute.NEW_BOX_SCREEN.route) {
-            NewBoxScreen(topAppBarTitle = "NOVA CAIXA")
+            NewBoxScreen(
+                onBackPressed = { navController.navigateUp() }
+            )
         }
 
         composable(route = NavigationRoute.SENT_SCREEN.route) {
-            SentScreen(topAppBarTitle = "ENVIADOS")
+            SentScreen(
+                onBackPressed = { navController.navigateUp() }
+            )
         }
 
         composable(route = NavigationRoute.STOCK_SCREEN.route) {
             StockScreen(
-                topAppBarTitle = "ESTOQUE",
                 onNavigateToAddNewProduct = {
                     navController.navigate(NavigationRoute.ADD_NEW_PRODUCT.route)
-                }
+                },
+                onBackPressed = { navController.navigateUp() }
             )
         }
 
         composable(route = NavigationRoute.ADD_NEW_PRODUCT.route) {
             NewProductScreen(
-                topAppBarTitle = "NOVO PRODUTO",
                 productName = "",
                 productDescription = "",
                 productAmount = "",
-                productForm = ""
-            )
-        }
-
-        composable(route = NavigationRoute.NEW_PRODUCT_SCREEN.route) {
-            NewProductScreen(
-                topAppBarTitle = "NOVO PRODUTO",
-                productName = "",
-                productDescription = "",
-                productAmount = "",
-                productForm = ""
+                productForm = "",
+                onBackPressed = { navController.navigateUp() }
             )
         }
     }
