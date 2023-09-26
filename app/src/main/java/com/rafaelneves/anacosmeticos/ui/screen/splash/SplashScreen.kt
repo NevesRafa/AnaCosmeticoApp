@@ -1,4 +1,4 @@
-package com.rafaelneves.anacosmeticos.ui.screen
+package com.rafaelneves.anacosmeticos.ui.screen.splash
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,12 +20,16 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.ui.widget.ButtonWithLoading
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun SplashScreen(
+    viewModel: SplashScreenViewModel = koinViewModel(),
     onNavigateToHomeScreen: () -> Unit
 ) {
+
+    val isLoading by viewModel.isLoading.collectAsState()
 
     Column(
         modifier = Modifier
@@ -33,19 +38,20 @@ fun SplashScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        ComposeLottieAnimation()
 
+        ComposeLottieAnimation()
 
         Spacer(modifier = Modifier.height(16.dp))
 
         ButtonWithLoading(
             title = stringResource(R.string.enter_btn),
-            isLoading = false,
-            onClick = { onNavigateToHomeScreen() }
+            isLoading = isLoading,
+            onClick = {
+                viewModel.openHomeScreen { onNavigateToHomeScreen() }
+            }
         )
     }
 }
-
 
 @Composable
 fun ComposeLottieAnimation(modifier: Modifier = Modifier) {
@@ -58,9 +64,3 @@ fun ComposeLottieAnimation(modifier: Modifier = Modifier) {
         iterations = LottieConstants.IterateForever,
     )
 }
-
-//@Composable
-//@Preview
-//fun SplashScreenPreview() {
-//    SplashScreen()
-//}

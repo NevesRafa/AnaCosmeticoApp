@@ -5,13 +5,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.rafaelneves.anacosmeticos.ui.screen.HomeScreen
 import com.rafaelneves.anacosmeticos.ui.screen.NewBoxScreen
 import com.rafaelneves.anacosmeticos.ui.screen.NewProductScreen
 import com.rafaelneves.anacosmeticos.ui.screen.NewShippingScreen
 import com.rafaelneves.anacosmeticos.ui.screen.SentScreen
-import com.rafaelneves.anacosmeticos.ui.screen.SplashScreen
 import com.rafaelneves.anacosmeticos.ui.screen.StockScreen
+import com.rafaelneves.anacosmeticos.ui.screen.home.HomeScreen
+import com.rafaelneves.anacosmeticos.ui.screen.splash.SplashScreen
 
 @Composable
 fun Navigation(modifier: Modifier = Modifier) {

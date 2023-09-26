@@ -67,17 +67,16 @@ fun ButtonWithText(
 }
 
 
-@Preview
-@Composable
-fun ButtonWithLoadingPreview() {
-    AnaCosmeticosTheme {
-        ButtonWithLoading(
-            title = "Entrar",
-            isLoading = false,
-            onClick = {}
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun ButtonWithLoadingPreview() {
+//    AnaCosmeticosTheme {
+//        ButtonWithLoading(
+//            title = "Entrar",
+//            isLoading =
+//        ) {}
+//    }
+//}
 
 @Preview
 @Composable

@@ -1,6 +1,5 @@
-package com.rafaelneves.anacosmeticos.ui.screen
+package com.rafaelneves.anacosmeticos.ui.screen.home
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,28 +17,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.ui.widget.CardHomeScreen
-
-
-data class ItemHomeScreen(
-    @StringRes val title: Int,
-    val icon: Int
-)
-
-val listHomeScreen = listOf(
-    ItemHomeScreen(title = R.string.new_shipping, icon = R.drawable.ic_create_shipping),
-    ItemHomeScreen(title = R.string.shipping, icon = R.drawable.ic_shipping),
-    ItemHomeScreen(title = R.string.stock, icon = R.drawable.ic_stock),
-    ItemHomeScreen(title = R.string.new_product, icon = R.drawable.ic_add)
-)
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
+    viewModel: HomeScreenViewModel = koinViewModel(),
     onNavigateToNewShippingScreenScreen: () -> Unit,
     onNavigateToSentScreenScreen: () -> Unit,
     onNavigateToStockScreenScreen: () -> Unit,
     onNavigateToNewProductScreenScreen: () -> Unit,
 ) {
-
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
@@ -57,7 +44,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.padding(16.dp))
                 }
 
-                items(listHomeScreen) { item ->
+                items(viewModel.homeScreenOptionsList) { item ->
                     CardHomeScreen(
                         icon = painterResource(id = item.icon),
                         text = stringResource(id = item.title),
@@ -84,15 +71,5 @@ fun HomeScreen(
                 }
             }
         }
-
     }
 }
-
-
-//@Preview
-//@Composable
-//fun HomeScreenPreview() {
-//    AnaCosmeticosTheme {
-//        HomeScreen()
-//    }
-//}

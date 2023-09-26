@@ -2,6 +2,9 @@ package com.rafaelneves.anacosmeticos.internal
 
 import androidx.room.Room
 import com.rafaelneves.anacosmeticos.data.local.database.AppDatabase
+import com.rafaelneves.anacosmeticos.ui.screen.home.HomeScreenViewModel
+import com.rafaelneves.anacosmeticos.ui.screen.splash.SplashScreenViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 object DIModules {
@@ -29,4 +32,7 @@ object DIModules {
     }
 }
 
-private val viewModelModule = module { }
+private val viewModelModule = module {
+    viewModel { HomeScreenViewModel() }
+    viewModel { SplashScreenViewModel() }
+}
