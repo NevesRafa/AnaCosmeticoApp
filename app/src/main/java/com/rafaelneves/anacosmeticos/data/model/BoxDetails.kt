@@ -5,10 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class BoxDetails(
-    @PrimaryKey val id: Int,
-    val productList: List<ProductBoxDetails> = listOf(),
-    val length: Double,
-    val height: Double,
-    val width: Double,
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val length: String,
+    val height: String,
+    val width: String,
     val weight: Double
 )

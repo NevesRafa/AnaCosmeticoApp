@@ -27,7 +27,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.data.model.ProductBoxDetails
-import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.ButtonWithText
 import com.rafaelneves.anacosmeticos.ui.widget.EditQuantityBottomSheet
 import com.rafaelneves.anacosmeticos.ui.widget.ProductBoxCard
@@ -100,10 +99,10 @@ fun NewShippingScreen(
                         product = ""
                     )
 
-                    AlertDialog(
-                        openDialog = showDialog,
-                        onDismiss = { showDialog = false }
-                    )
+//                    AlertDialog(
+//                        openDialog = showDialog,
+//                        onDismiss = { showDialog = false }
+//                    )
                 }
 
             }

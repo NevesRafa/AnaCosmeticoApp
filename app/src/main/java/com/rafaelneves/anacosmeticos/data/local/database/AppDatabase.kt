@@ -19,7 +19,7 @@ import com.rafaelneves.anacosmeticos.data.model.ShippingDetails
         ProductBoxDetails::class,
         ProductDetails::class,
         ShippingDetails::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(ListConverter::class)
 abstract class AppDatabase : RoomDatabase() {

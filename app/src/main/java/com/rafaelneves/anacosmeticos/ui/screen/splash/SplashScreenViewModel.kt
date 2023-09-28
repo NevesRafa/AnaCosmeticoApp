@@ -1,26 +1,24 @@
 package com.rafaelneves.anacosmeticos.ui.screen.splash
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SplashScreenViewModel : ViewModel() {
 
-    private val _isLoading = MutableStateFlow(false)
-    var isLoading = _isLoading.asStateFlow()
+    val isLoading = mutableStateOf(false)
 
     fun openHomeScreen(
         onNavigateToHomeScreen: () -> Unit
     ) {
         viewModelScope.launch {
-            _isLoading.value = true
+            isLoading.value = true
 
             delay(2000)
 
-            _isLoading.value = false
+            isLoading.value = false
 
             onNavigateToHomeScreen()
         }

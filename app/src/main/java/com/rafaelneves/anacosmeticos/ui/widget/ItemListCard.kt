@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rafaelneves.anacosmeticos.R
+import com.rafaelneves.anacosmeticos.data.model.BoxDetails
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -168,21 +169,17 @@ fun ProductCard(
 
 @Composable
 fun BoxCard(
-    length: Double,
-    height: Double,
-    width: Double,
-    weight: Double,
-    onClickEdit: () -> Unit,
-    onClickDelete: () -> Unit
+    boxDetails: BoxDetails,
+    onClickEdit: (BoxDetails) -> Unit,
+    onClickDelete: (BoxDetails) -> Unit
 ) {
-
     var expanded by remember { mutableStateOf(false) }
 
     Box {
         ItemCard(
             icon = painterResource(id = R.drawable.ic_box),
-            name = "$length X $height X $width",
-            description = "$weight KG",
+            name = "${boxDetails.length} X ${boxDetails.height} X ${boxDetails.width}",
+            description = "${boxDetails.weight} KG",
             quantity = 1,
             onClick = { },
             onLongClick = { expanded = !expanded }
@@ -194,11 +191,17 @@ fun BoxCard(
         ) {
             DropdownMenuItem(
                 text = { Text("Editar") },
-                onClick = { onClickEdit() }
+                onClick = {
+                    expanded = false
+                    onClickEdit(boxDetails)
+                }
             )
             DropdownMenuItem(
                 text = { Text("Excluir") },
-                onClick = { onClickDelete() }
+                onClick = {
+                    expanded = false
+                    onClickDelete(boxDetails)
+                }
             )
         }
     }
@@ -368,17 +371,16 @@ fun PreviewIconTextArrowCard() {
     )
 }
 
-@Preview
-@Composable
-fun BoxCardPreview() {
-    AnaCosmeticosTheme {
-        BoxCard(
-            length = 30.0,
-            height = 30.0,
-            width = 30.0,
-            weight = 12.5,
-            onClickEdit = {},
-            onClickDelete = {}
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun BoxCardPreview() {
+//    AnaCosmeticosTheme {
+//        BoxCard(
+//            length = 30.0,
+//            height = 30.0,
+//            width = 30.0,
+//            weight = 12.5,
+//            onClickEdit = {}
+//        ) {}
+//    }
+//}

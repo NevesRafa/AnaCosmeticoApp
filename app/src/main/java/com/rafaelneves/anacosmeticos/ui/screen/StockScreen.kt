@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.ProductCard
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 
@@ -71,10 +70,10 @@ fun StockScreen(
                         onClickDelete = { showDialog = true }
                     )
 
-                    AlertDialog(
-                        openDialog = showDialog,
-                        onDismiss = { showDialog = false }
-                    )
+//                    AlertDialog(
+//                        openDialog = showDialog,
+//                        onDismiss = { showDialog = false }
+//                    )
                 }
             }
         }

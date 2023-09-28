@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.rafaelneves.anacosmeticos.ui.screen.NewBoxScreen
+import com.rafaelneves.anacosmeticos.ui.new_box.NewBoxScreen
 import com.rafaelneves.anacosmeticos.ui.screen.NewProductScreen
 import com.rafaelneves.anacosmeticos.ui.screen.NewShippingScreen
 import com.rafaelneves.anacosmeticos.ui.screen.SentScreen

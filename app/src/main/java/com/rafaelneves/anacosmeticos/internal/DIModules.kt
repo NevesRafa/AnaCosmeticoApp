@@ -2,6 +2,8 @@ package com.rafaelneves.anacosmeticos.internal
 
 import androidx.room.Room
 import com.rafaelneves.anacosmeticos.data.local.database.AppDatabase
+import com.rafaelneves.anacosmeticos.repository.NewBoxRepository
+import com.rafaelneves.anacosmeticos.ui.new_box.NewBoxScreenViewModel
 import com.rafaelneves.anacosmeticos.ui.screen.home.HomeScreenViewModel
 import com.rafaelneves.anacosmeticos.ui.screen.splash.SplashScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -11,6 +13,7 @@ object DIModules {
 
     fun all() = listOf(
         dataModule,
+        repositoryModule,
         viewModelModule
     )
 
@@ -32,7 +35,12 @@ object DIModules {
     }
 }
 
+private val repositoryModule = module {
+    factory { NewBoxRepository(get()) }
+}
+
 private val viewModelModule = module {
     viewModel { HomeScreenViewModel() }
     viewModel { SplashScreenViewModel() }
+    viewModel { NewBoxScreenViewModel(get()) }
 }

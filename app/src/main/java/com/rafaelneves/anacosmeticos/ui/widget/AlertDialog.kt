@@ -8,14 +8,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
+import com.rafaelneves.anacosmeticos.data.model.BoxDetails
 
 
 @Composable
 fun AlertDialog(
     openDialog: Boolean,
+    onDeleteBox: (BoxDetails) -> Unit,
+    boxDetails: BoxDetails?,
     onDismiss: () -> Unit
 ) {
     val dialogState = remember { mutableStateOf(true) }
@@ -44,6 +45,9 @@ fun AlertDialog(
             confirmButton = {
                 TextButton(
                     onClick = {
+                        if (boxDetails != null) {
+                            onDeleteBox(boxDetails)
+                        }
                         onDismiss()
                     }
                 ) {
@@ -69,17 +73,6 @@ fun AlertDialog(
                     )
                 }
             }
-        )
-    }
-}
-
-@Preview
-@Composable
-fun AlertDialogPreview() {
-    AnaCosmeticosTheme {
-        AlertDialog(
-            openDialog = true,
-            onDismiss = {}
         )
     }
 }

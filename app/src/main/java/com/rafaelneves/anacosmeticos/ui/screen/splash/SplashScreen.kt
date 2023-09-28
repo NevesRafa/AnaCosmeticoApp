@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,9 +27,6 @@ fun SplashScreen(
     viewModel: SplashScreenViewModel = koinViewModel(),
     onNavigateToHomeScreen: () -> Unit
 ) {
-
-    val isLoading by viewModel.isLoading.collectAsState()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +41,7 @@ fun SplashScreen(
 
         ButtonWithLoading(
             title = stringResource(R.string.enter_btn),
-            isLoading = isLoading,
+            isLoading = viewModel.isLoading.value,
             onClick = {
                 viewModel.openHomeScreen { onNavigateToHomeScreen() }
             }
