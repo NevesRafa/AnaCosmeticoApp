@@ -178,7 +178,7 @@ fun BoxCard(
     Box {
         ItemCard(
             icon = painterResource(id = R.drawable.ic_box),
-            name = "${boxDetails.length} X ${boxDetails.height} X ${boxDetails.width}",
+            name = "${boxDetails.length} X ${boxDetails.width} X ${boxDetails.height}",
             description = "${boxDetails.weight} KG",
             quantity = 1,
             onClick = { },

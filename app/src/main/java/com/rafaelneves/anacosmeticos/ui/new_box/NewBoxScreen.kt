@@ -2,9 +2,11 @@ package com.rafaelneves.anacosmeticos.ui.new_box
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -15,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -55,37 +58,45 @@ fun NewBoxScreen(
         }
     ) { innerPadding ->
 
-        LazyColumn(
-            modifier = Modifier
-                .padding(innerPadding)
-                .background(Color.White)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-
-            item { Spacer(modifier = Modifier.padding(16.dp)) }
-
-            if (viewModel.listBox.isEmpty()) {
-                item {
-                    Text(
-                        text = "Lista vazia"
-                    )
-                }
+        if (viewModel.listBox.isEmpty()) {
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .background(Color.White)
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center)
+            ) {
+                Text(
+                    text = "Lista vazia"
+                )
             }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .background(Color.White)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
 
-            items(viewModel.listBox) { item ->
-                BoxCard(
-                    boxDetails = item,
-                    onClickEdit = {
-                        viewModel.boxToEdit = it
-                        viewModel.openBottomSheetEdit.value = true
+                item { Spacer(modifier = Modifier.padding(16.dp)) }
+
+                items(viewModel.listBox) { item ->
+                    BoxCard(
+                        boxDetails = item,
+                        onClickEdit = {
+                            viewModel.boxToEdit = it
+                            viewModel.openBottomSheetEdit.value = true
+                        }
+                    ) {
+                        viewModel.boxToDelete = it
+                        viewModel.showDialog.value = true
                     }
-                ) {
-                    viewModel.boxToDelete = it
-                    viewModel.showDialog.value = true
                 }
             }
         }
+
+
         CreateBoxBottomSheet(
             openBottomSheet = viewModel.openBottomSheet.value,
             onDismiss = { viewModel.openBottomSheet.value = false },
