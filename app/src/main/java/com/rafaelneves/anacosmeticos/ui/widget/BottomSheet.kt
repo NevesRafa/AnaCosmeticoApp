@@ -124,8 +124,6 @@ fun CreateBoxBottomSheet(
     val heightState = remember { mutableStateOf("") }
     val weightState = remember { mutableStateOf("") }
 
-
-
     BottomSheet(
         title = "NOVA CAIXA",
         openBottomSheet = openBottomSheet,

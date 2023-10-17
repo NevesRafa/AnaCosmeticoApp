@@ -1,4 +1,4 @@
-package com.rafaelneves.anacosmeticos.ui.new_box
+package com.rafaelneves.anacosmeticos.ui.screen.new_box
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

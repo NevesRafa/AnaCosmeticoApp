@@ -5,13 +5,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.rafaelneves.anacosmeticos.ui.new_box.NewBoxScreen
-import com.rafaelneves.anacosmeticos.ui.screen.NewProductScreen
-import com.rafaelneves.anacosmeticos.ui.screen.NewShippingScreen
-import com.rafaelneves.anacosmeticos.ui.screen.SentScreen
-import com.rafaelneves.anacosmeticos.ui.screen.StockScreen
 import com.rafaelneves.anacosmeticos.ui.screen.home.HomeScreen
+import com.rafaelneves.anacosmeticos.ui.screen.new_box.NewBoxScreen
+import com.rafaelneves.anacosmeticos.ui.screen.product.NewProductScreen
+import com.rafaelneves.anacosmeticos.ui.screen.sent.SentScreen
+import com.rafaelneves.anacosmeticos.ui.screen.shipping.NewShippingScreen
 import com.rafaelneves.anacosmeticos.ui.screen.splash.SplashScreen
+import com.rafaelneves.anacosmeticos.ui.screen.stock.StockScreen
 
 @Composable
 fun Navigation(modifier: Modifier = Modifier) {
@@ -86,13 +86,7 @@ fun Navigation(modifier: Modifier = Modifier) {
         }
 
         composable(route = NavigationRoute.ADD_NEW_PRODUCT.route) {
-            NewProductScreen(
-                productName = "",
-                productDescription = "",
-                productAmount = "",
-                productForm = "",
-                onBackPressed = { navController.navigateUp() }
-            )
+            NewProductScreen(onBackPressed = { navController.navigateUp() })
         }
     }
 }

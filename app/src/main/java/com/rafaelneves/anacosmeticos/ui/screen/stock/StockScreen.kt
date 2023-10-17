@@ -1,4 +1,4 @@
-package com.rafaelneves.anacosmeticos.ui.screen
+package com.rafaelneves.anacosmeticos.ui.screen.stock
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.rafaelneves.anacosmeticos.ui.screen.sent.SearchTextField
+import com.rafaelneves.anacosmeticos.ui.screen.shipping.MOCKPRODUCT
 import com.rafaelneves.anacosmeticos.ui.widget.ProductCard
 import com.rafaelneves.anacosmeticos.ui.widget.TopAppBar
 

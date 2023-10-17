@@ -1,4 +1,4 @@
-package com.rafaelneves.anacosmeticos.ui.new_box
+package com.rafaelneves.anacosmeticos.ui.screen.new_box
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -95,7 +95,6 @@ fun NewBoxScreen(
                 }
             }
         }
-
 
         CreateBoxBottomSheet(
             openBottomSheet = viewModel.openBottomSheet.value,

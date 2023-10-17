@@ -1,4 +1,4 @@
-package com.rafaelneves.anacosmeticos.ui.screen
+package com.rafaelneves.anacosmeticos.ui.screen.sent
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
