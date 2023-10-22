@@ -22,7 +22,7 @@ class NewBoxScreenViewModel(
 
     var boxToDelete: BoxDetails? = null
 
-    var listBox = listOf<BoxDetails>()
+    var listBox = mutableStateOf(listOf<BoxDetails>())
 
     fun createNewBox(newBox: BoxDetails) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -33,7 +33,7 @@ class NewBoxScreenViewModel(
 
     fun getListBox() {
         viewModelScope.launch(Dispatchers.IO) {
-            listBox = repository.loadListBox()
+            listBox.value = repository.loadListBox()
         }
     }
 

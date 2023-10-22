@@ -2,9 +2,11 @@ package com.rafaelneves.anacosmeticos.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.rafaelneves.anacosmeticos.ui.screen.home.HomeScreen
 import com.rafaelneves.anacosmeticos.ui.screen.new_box.NewBoxScreen
 import com.rafaelneves.anacosmeticos.ui.screen.product.NewProductScreen
@@ -81,12 +83,31 @@ fun Navigation(modifier: Modifier = Modifier) {
                 onNavigateToAddNewProduct = {
                     navController.navigate(NavigationRoute.ADD_NEW_PRODUCT.route)
                 },
+                onNavigateToEditProduct = { id ->
+                    navController.navigate(
+                        "${NavigationRoute.EDIT_PRODUCT.route}/${id}",
+                    )
+                },
                 onBackPressed = { navController.navigateUp() }
             )
         }
 
         composable(route = NavigationRoute.ADD_NEW_PRODUCT.route) {
             NewProductScreen(onBackPressed = { navController.navigateUp() })
+        }
+
+
+        composable(
+            route = "${NavigationRoute.EDIT_PRODUCT.route}/{productId}",
+            arguments = listOf(
+                navArgument("productId") { type = NavType.IntType }
+            )
+        ) {
+            NewProductScreen(
+                onBackPressed = { navController.navigateUp() },
+                productIdToEdit = it.arguments?.getInt("productId")
+
+            )
         }
     }
 }

@@ -4,22 +4,18 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.rafaelneves.anacosmeticos.data.model.BoxDetails
 
 
 @Composable
 fun AlertDialog(
     openDialog: Boolean,
-    onDeleteBox: (BoxDetails) -> Unit,
-    boxDetails: BoxDetails?,
+    onDeleteClick: (Any) -> Unit,
+    objectDetails: Any?,
     onDismiss: () -> Unit
 ) {
-    val dialogState = remember { mutableStateOf(true) }
 
     if (openDialog) {
         AlertDialog(
@@ -45,8 +41,8 @@ fun AlertDialog(
             confirmButton = {
                 TextButton(
                     onClick = {
-                        if (boxDetails != null) {
-                            onDeleteBox(boxDetails)
+                        if (objectDetails != null) {
+                            onDeleteClick(objectDetails)
                         }
                         onDismiss()
                     }

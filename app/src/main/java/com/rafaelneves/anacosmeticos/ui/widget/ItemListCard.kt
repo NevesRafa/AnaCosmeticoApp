@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rafaelneves.anacosmeticos.R
 import com.rafaelneves.anacosmeticos.data.model.BoxDetails
+import com.rafaelneves.anacosmeticos.data.model.ProductDetails
 import com.rafaelneves.anacosmeticos.ui.theme.AnaCosmeticosTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -126,16 +127,14 @@ private fun ItemCard(
 
 @Composable
 fun ProductCard(
-    productName: String,
-    productBrand: String,
-    productQuantity: Int,
-    onClickEdit: () -> Unit,
-    onClickDelete: () -> Unit
+    product: ProductDetails,
+    onClickEdit: (ProductDetails) -> Unit,
+    onClickDelete: (ProductDetails) -> Unit
 ) {
 
     var expanded by remember { mutableStateOf(false) }
 
-    val iconCondition = if (productQuantity <= 0) {
+    val iconCondition = if (product.productAmount <= 0) {
         painterResource(id = R.drawable.ic_sad)
     } else {
         painterResource(id = R.drawable.ic_happy)
@@ -144,9 +143,9 @@ fun ProductCard(
     Box {
         ItemCard(
             icon = iconCondition,
-            name = productName,
-            description = productBrand,
-            quantity = productQuantity,
+            name = product.productName,
+            description = product.productDescription,
+            quantity = product.productAmount,
             onClick = { },
             onLongClick = { expanded = !expanded }
         )
@@ -157,11 +156,13 @@ fun ProductCard(
         ) {
             DropdownMenuItem(
                 text = { Text("Editar") },
-                onClick = { onClickEdit() }
+                onClick = { onClickEdit(product) }
             )
             DropdownMenuItem(
                 text = { Text("Excluir") },
-                onClick = { onClickDelete() }
+                onClick = {
+                    onClickDelete(product)
+                }
             )
         }
     }
@@ -322,20 +323,6 @@ fun CardHomeScreen(
 
 @Preview
 @Composable
-fun ProductCardPreview() {
-    AnaCosmeticosTheme {
-        ProductCard(
-            productName = "Kaiak Tradicional",
-            productBrand = "Natura",
-            productQuantity = 0,
-            onClickEdit = {},
-            onClickDelete = {}
-        )
-    }
-}
-
-@Preview
-@Composable
 fun ShippingCardPreview() {
     AnaCosmeticosTheme {
         SentCard(
@@ -370,17 +357,3 @@ fun PreviewIconTextArrowCard() {
         onClick = {}
     )
 }
-
-//@Preview
-//@Composable
-//fun BoxCardPreview() {
-//    AnaCosmeticosTheme {
-//        BoxCard(
-//            length = 30.0,
-//            height = 30.0,
-//            width = 30.0,
-//            weight = 12.5,
-//            onClickEdit = {}
-//        ) {}
-//    }
-//}

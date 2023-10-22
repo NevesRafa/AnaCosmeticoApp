@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.rafaelneves.anacosmeticos.data.model.BoxDetails
 import com.rafaelneves.anacosmeticos.ui.widget.AlertDialog
 import com.rafaelneves.anacosmeticos.ui.widget.BoxCard
 import com.rafaelneves.anacosmeticos.ui.widget.CreateBoxBottomSheet
@@ -58,7 +59,7 @@ fun NewBoxScreen(
         }
     ) { innerPadding ->
 
-        if (viewModel.listBox.isEmpty()) {
+        if (viewModel.listBox.value.isEmpty()) {
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
@@ -81,7 +82,7 @@ fun NewBoxScreen(
 
                 item { Spacer(modifier = Modifier.padding(16.dp)) }
 
-                items(viewModel.listBox) { item ->
+                items(viewModel.listBox.value) { item ->
                     BoxCard(
                         boxDetails = item,
                         onClickEdit = {
@@ -118,9 +119,8 @@ fun NewBoxScreen(
         AlertDialog(
             openDialog = viewModel.showDialog.value,
             onDismiss = { viewModel.showDialog.value = false },
-            onDeleteBox = { viewModel.deleteBox(it) },
-            boxDetails = viewModel.boxToDelete
+            onDeleteClick = { viewModel.deleteBox(it as BoxDetails) },
+            objectDetails = viewModel.boxToDelete
         )
-
     }
 }

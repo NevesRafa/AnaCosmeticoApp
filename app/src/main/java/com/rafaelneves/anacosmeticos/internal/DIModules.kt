@@ -8,6 +8,7 @@ import com.rafaelneves.anacosmeticos.ui.screen.home.HomeScreenViewModel
 import com.rafaelneves.anacosmeticos.ui.screen.new_box.NewBoxScreenViewModel
 import com.rafaelneves.anacosmeticos.ui.screen.product.NewProductViewModel
 import com.rafaelneves.anacosmeticos.ui.screen.splash.SplashScreenViewModel
+import com.rafaelneves.anacosmeticos.ui.screen.stock.StockViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -47,4 +48,5 @@ private val viewModelModule = module {
     viewModel { SplashScreenViewModel() }
     viewModel { NewBoxScreenViewModel(get()) }
     viewModel { NewProductViewModel(get()) }
+    viewModel { StockViewModel(get()) }
 }

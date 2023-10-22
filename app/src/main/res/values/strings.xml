@@ -23,5 +23,7 @@
     <string name="new_product">Novo Produto</string>
     <string name="add_item">Adicionar Item</string>
     <string name="config_box">Configurações da Caixa</string>
+    <string name="product_edit_title">EDITAR PRODUTO</string>
+    <string name="new_product_title">NOVO PRODUTO</string>
 
 </resources>

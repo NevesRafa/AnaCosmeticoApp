@@ -8,6 +8,7 @@ enum class NavigationRoute(val route: String) {
     SENT_SCREEN("sentScreen"),
     STOCK_SCREEN("stockScreen"),
     NEW_BOX_SCREEN("newBoxScreen"),
-    ADD_NEW_PRODUCT("addNewProduct")
+    ADD_NEW_PRODUCT("addNewProduct"),
+    EDIT_PRODUCT("editProduct")
 
 }

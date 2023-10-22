@@ -11,8 +11,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,13 +25,18 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun NewProductScreen(
     onBackPressed: () -> Unit,
-    viewModel: NewProductViewModel = koinViewModel()
+    viewModel: NewProductViewModel = koinViewModel(),
+    productIdToEdit: Int? = null
 ) {
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = "NOVO PRODUTO",
+                title = if (productIdToEdit != null) {
+                    stringResource(R.string.product_edit_title)
+                } else {
+                    stringResource(R.string.new_product_title)
+                },
                 onBackPressed = { onBackPressed() }
             )
         }
@@ -42,22 +46,38 @@ fun NewProductScreen(
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+
+            if (productIdToEdit != null) {
+                viewModel.loadProductToEdit(productIdToEdit)
+            }
+
             BodyNewProduct(
                 onSaveClick = {
-                    viewModel.createNewProduct(it)
-                }
+                    if (productIdToEdit != null) {
+                        viewModel.editProduct(it)
+                    } else {
+                        viewModel.createNewProduct(it)
+                    }
+                },
+                productName = viewModel.productNameTyped,
+                productDescription = viewModel.productDescriptionTyped,
+                productAmount = viewModel.productAmountTyped,
+                productForm = viewModel.productFormTyped,
+                idToEdit = viewModel.productIdTyped
             )
         }
     }
 }
 
 @Composable
-fun BodyNewProduct(onSaveClick: (ProductDetails) -> Unit) {
-
-    val productName = remember { mutableStateOf("") }
-    val productDescription = remember { mutableStateOf("") }
-    val productAmount = remember { mutableStateOf("") }
-    val productForm = remember { mutableStateOf("") }
+fun BodyNewProduct(
+    onSaveClick: (ProductDetails) -> Unit,
+    productName: MutableState<String>,
+    productDescription: MutableState<String>,
+    productAmount: MutableState<String>,
+    productForm: MutableState<String>,
+    idToEdit: MutableState<Int>
+) {
 
     Column(
         Modifier.padding(16.dp)
@@ -116,13 +136,14 @@ fun BodyNewProduct(onSaveClick: (ProductDetails) -> Unit) {
             onClick = {
                 onSaveClick(
                     ProductDetails(
-                        id = 0,
+                        id = idToEdit.value,
                         productName = productName.value,
                         productDescription = productDescription.value,
                         productAmount = productAmount.value.toInt(),
                         productForm = productForm.value
                     )
                 )
+                idToEdit.value = 0
                 productName.value = ""
                 productDescription.value = ""
                 productAmount.value = ""
