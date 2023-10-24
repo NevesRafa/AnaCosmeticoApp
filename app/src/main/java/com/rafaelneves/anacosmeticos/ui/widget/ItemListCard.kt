@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -54,7 +55,9 @@ private fun ItemCard(
     description: String,
     quantity: Int,
     onClick: () -> Unit,
-    onLongClick: () -> Unit
+    onLongClick: () -> Unit,
+    cardBackgroundColor: Color = Color(0xFFDCEDC8),
+    circleBackgroundColor: Color = Color(0xFFAED581)
 ) {
     Card(
         modifier = Modifier
@@ -64,7 +67,10 @@ private fun ItemCard(
                 onClick = { onClick() },
                 onLongClick = { onLongClick() }
             ),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = cardBackgroundColor
+        )
     ) {
         Row(
             modifier = Modifier
@@ -78,12 +84,12 @@ private fun ItemCard(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(color = Color(0xFFBCC2CC))
+                    .background(color = circleBackgroundColor)
             ) {
                 Icon(
                     painter = icon,
                     contentDescription = null,
-                    tint = Color(0xFF545F71),
+                    tint = Color(0xFF000000),
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(12.dp)
@@ -97,7 +103,7 @@ private fun ItemCard(
                     text = name,
                     fontSize = 16.sp,
                     fontWeight = FontWeight(700),
-                    color = Color(0xFF545F71)
+                    color = Color(0xFF000000)
 
                 )
                 Text(
@@ -106,7 +112,7 @@ private fun ItemCard(
                     text = description,
                     fontSize = 16.sp,
                     fontWeight = FontWeight(400),
-                    color = Color(0xFF545F71)
+                    color = Color(0xFF000000)
 
                 )
             }
@@ -118,7 +124,7 @@ private fun ItemCard(
                 text = "Qtd: $quantity",
                 fontSize = 16.sp,
                 fontWeight = FontWeight(400),
-                color = Color(0xFF545F71)
+                color = Color(0xFF000000)
 
             )
         }
@@ -140,6 +146,18 @@ fun ProductCard(
         painterResource(id = R.drawable.ic_happy)
     }
 
+    val backgroundCondition = if (product.productAmount <= 0) {
+        Color(0xFFF8BBD0)
+    } else {
+        Color(0xFFDCEDC8)
+    }
+
+    val circleBackgroundCondition = if (product.productAmount <= 0) {
+        Color(0xFFF06292)
+    } else {
+        Color(0xFFAED581)
+    }
+
     Box {
         ItemCard(
             icon = iconCondition,
@@ -147,7 +165,9 @@ fun ProductCard(
             description = product.productDescription,
             quantity = product.productAmount,
             onClick = { },
-            onLongClick = { expanded = !expanded }
+            onLongClick = { expanded = !expanded },
+            cardBackgroundColor = backgroundCondition,
+            circleBackgroundColor = circleBackgroundCondition
         )
         DropdownMenu(
             expanded = expanded,
@@ -183,7 +203,7 @@ fun BoxCard(
             description = "${boxDetails.weight} KG",
             quantity = 1,
             onClick = { },
-            onLongClick = { expanded = !expanded }
+            onLongClick = { expanded = !expanded },
         )
         DropdownMenu(
             expanded = expanded,
@@ -228,7 +248,7 @@ fun SentCard(
         description = boxQuantityStringCondition,
         quantity = productQuantity,
         onClick = { onClick() },
-        onLongClick = { }
+        onLongClick = { },
     )
 }
 

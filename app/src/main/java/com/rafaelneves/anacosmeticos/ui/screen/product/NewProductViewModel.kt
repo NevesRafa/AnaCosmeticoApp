@@ -1,6 +1,7 @@
 package com.rafaelneves.anacosmeticos.ui.screen.product
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.geometry.Size
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rafaelneves.anacosmeticos.data.model.ProductDetails
@@ -23,6 +24,12 @@ class NewProductViewModel(
     val productFormTyped = mutableStateOf("")
 
     private var productToEdit: ProductDetails? = null
+
+    val dropdownProductManufacturerExpended = mutableStateOf(false)
+
+    val productManufacturerList = listOf("Natura", "Boticario", "Avon", "Outros")
+
+    val dropdownProductManufacturerTextFieldSize = mutableStateOf(Size.Zero)
 
 
     fun createNewProduct(newProduct: ProductDetails) {
